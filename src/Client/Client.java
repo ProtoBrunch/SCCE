@@ -15,7 +15,7 @@ public class Client extends Thread{
     static Socket server;
 
     public static void main(String[] args) {
-        String host = "172.16.2.156";
+        String host = "192.168.22.201";
         int port = 50000;
 
         try {
@@ -25,7 +25,6 @@ public class Client extends Thread{
         }
 
         new Client().start();
-        new ClientToServerWriter().start();
 
     }
 
@@ -47,9 +46,17 @@ public class Client extends Thread{
 
         } catch(SocketException se){
             System.out.println("Lost Connection to Server.");
-            this.interrupt();
         } catch (IOException e){
             e.printStackTrace();
+        }finally {
+            if(server.isConnected()){
+                try {
+                    server.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            this.interrupt();
         }
     }
 }

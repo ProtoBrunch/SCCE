@@ -45,4 +45,8 @@ public class ServerWriter {
     public void sendClienInformation(String name, String ip, int port){
         outToClient.println("RCI "+name+" "+ip+" "+port);
     }
+
+    public void sendExit(){
+        outToClient.print("exit");
+    }
 }

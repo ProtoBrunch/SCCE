@@ -8,10 +8,11 @@ import java.util.Scanner;
 /**
  * Created by berberatr on 03.04.2017.
  */
-public class ClientToServerWriter extends Thread{
+public class ClientToServerWriter{
 
     PrintWriter outToServer;
     Scanner scanner = new Scanner(System.in);
+    String clientInput;
 
 
     public ClientToServerWriter(){
@@ -20,16 +21,6 @@ public class ClientToServerWriter extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void run(){
-        String clientInput;
-        do {
-            clientInput = scanner.nextLine();
-            if (clientInput != null) {
-                outToServer.println(clientInput);
-            }
-        }while(!Objects.equals(clientInput, "exit"));
     }
 
     public void sendInformation(String name, int port){
@@ -42,6 +33,15 @@ public class ClientToServerWriter extends Thread{
 
     public void giveInfosToChat(String name){
         outToServer.println("GCI "+name);
+    }
+
+    public void sendMessage(){
+        clientInput = scanner.nextLine();
+        outToServer.println(clientInput);
+    }
+
+    public void endServerConnection(){
+        outToServer.println("exit");
     }
 }
 

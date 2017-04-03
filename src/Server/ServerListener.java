@@ -12,7 +12,6 @@ import java.util.Objects;
 public class ServerListener extends Thread{
     private Socket client;
     private BufferedReader inFromClient;
-    private String socketName;
 
 
     public ServerListener(Socket client){
@@ -35,6 +34,10 @@ public class ServerListener extends Thread{
                     new ServerController(input, client);
                 }
             }while(!Objects.equals(input, "exit"));
+
+            client.close();
+            this.interrupt();
+
         }catch (IOException e){
             e.printStackTrace();
         }

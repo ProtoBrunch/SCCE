@@ -12,9 +12,8 @@ import java.util.Objects;
 /**
  * Created by berberatr on 03.04.2017.
  */
-public class ClientConnection{
-    int port;
-    String ip;
+public class ClientConnection extends Thread{
+
     Socket partner;
     BufferedReader inFromPartner;
 
@@ -23,8 +22,9 @@ public class ClientConnection{
             partner = new Socket(ip, port);
             if (partner.isConnected()) {
                 System.out.println("Verbindung fuckers!");
-                new ClientToClientListener(partner);
-                new ClientToClientWriter(partner);
+                new ClientController("exit");
+                new ClientToClientWriter(partner).start();
+                this.start();
             }
         } catch (IOException e) {
             e.printStackTrace();

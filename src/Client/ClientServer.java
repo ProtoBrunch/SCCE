@@ -13,17 +13,16 @@ import java.util.Objects;
 public class ClientServer extends Thread{
     int port;
     Socket partner;
-    BufferedReader inFromPartner;
+    private BufferedReader inFromPartner;
+    static ServerSocket clientServer;
 
 
     ClientServer(int port){
         this.port = port;
-        try(ServerSocket clientServer = new ServerSocket(port)){
+        try{
+            clientServer = new ServerSocket(port);
             System.out.println("Started my own server!");
-            partner = clientServer.accept();
-            System.out.println("Verbindung fuclkerssdd");
-            new ClientToClientWriter(partner);
-
+            this.start();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -32,6 +31,10 @@ public class ClientServer extends Thread{
 
     public void run() {
         try {
+            partner = clientServer.accept();
+            System.out.println("Verbindung fuclkerssdd");
+            new ClientController("exit");
+            new ClientToClientWriter(partner).start();
             this.inFromPartner = new BufferedReader(new InputStreamReader(partner.getInputStream()));
 
             String input;

@@ -32,7 +32,7 @@ public class ClientToClientWriter extends Thread{
                 if (clientInput != null) {
                     outToPartner.println(clientInput);
                 }
-            }while(!Objects.equals(clientInput, "exit"));
+            }while(!Objects.equals(clientInput, "exit2"));
         }
     }
 

@@ -23,6 +23,8 @@ public class ServerController {
                 Server.clientIpsLookingForConnection.put(inputArray[1],inetadress);
                 new ServerWriter(client).successOpeningRoom();
                 break;
+
+
             case "GMC":
                 for(String key: Server.clientPortsLookingForConnection.keySet()){
                     new ServerWriter(client).sendClientName(key);
@@ -35,6 +37,8 @@ public class ServerController {
                 new ServerWriter(client).sendClienInformation(inputArray[1], ip, port);
                 break;
 
+            case "exit":
+                new ServerWriter(client).sendExit();
 
 
         }
